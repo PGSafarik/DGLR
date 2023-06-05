@@ -1,0 +1,13 @@
+Package: NAME-OF-THE-GAME-PACKAGE
+Version: 1.00
+Section: games 
+Priority: optional 
+Recommends:  
+Depends: dosbox 
+Architecture: all
+Installed-Size:  
+Maintainer: gabriel <gabriel@Alien>
+Description: [GAME-SERIES: ]GAME-NAME[, GAME-VERSION] ([RELEASE-YEAR, ]DEVELOPER[/DISTRIBUTOR])
+ BRIEF DESCRITION OF GAME 
+ .
+ Tento balicek obsahuje original hru, a soubory potrebne pro jeji spusteni a  chod v Dosboxu pod OS Linux. Balicek vytvoren a otestovan na distribuci Debian 11 GNU/Linux.

@@ -1,0 +1,26 @@
+[Desktop Entry]
+Name=XXXXXX
+Comment=XXXXXXX
+Exec=/usr/games/XXX.run
+Terminal=false
+Type=Application
+Icon=/usr/share/pixmaps/XXXX.png
+Encoding=UTF-8
+#ActionGame;AdventureGame;ArcadeGame;BoardGame;BlocksGame;CardGame;KidsGame;LogicGame;RolePlaying;Shooter;Simulation;SportsGame;StrategyGame
+Categories=Game;ArcadeGame;
+Actions=Setup;Clean;Settings;
+
+[Desktop Action Setup]
+Name=Edit Dosbox configurations
+Exec=/usr/games/XXX.run setup
+Icon=dosbox
+
+[Desktop Action Settings]
+Name=Game configuration
+Exec=/usr/games/XXX.run settings
+Icon=
+
+[Desktop Action Clean]
+Name=Clean user storage
+Exec=/usr/games/XXX.run clean
+Icon=
