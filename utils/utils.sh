@@ -99,3 +99,9 @@ function Checkverb
     echo $1
   fi
 }
+
+# Writes an item to the specified file in the format key: value 
+function writen
+{
+  sed -i "s/\($1 *: *\).*/\1$2/" "$3"
+}
