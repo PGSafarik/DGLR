@@ -1,14 +1,15 @@
 #! /bin/bash
 # Selfexecute archive build script v  1.0 
-# (C) 2019 - 2020 D.A.Tiger GNU GPL v3
+# (C) 2019 - 2023 D.A.Tiger GNU GPL v3
 
 ### DIRECTORIES ###
-WORK="$(pwd)"                          # Work point for this skript
-TOOLS_DIR="${WORK}/utils"              # Directory for scprits and other tools using in build.sh
-BUILD_DIR="${WORK}/build"              # Output directory 
-SOURCE_DIR="${WORK}/project/selfexec"  # Source directory for selfexecutable archive
-DATA_DIR="${SOURCE_DIR}/Data"          # Source directory for data archive
-METADATA_DIR=".metadata"               # Directory name for save metadata in runable package 
+BASE_DIR="$(pwd)"                          # Work point for this skript
+TOOLS_DIR="${BASE_DIR}/utils"              # Directory for scprits and other tools using in build.sh
+BUILD_DIR="${BASE_DIR}/build"              # Output directory 
+SOURCE_DIR="${BASE_DIR}/project/selfexec"  # Source directory for selfexecutable archive
+PACKAGE_DIR="${BASE_DIR}/project/package"  # Source directory for package
+DATA_DIR="${SOURCE_DIR}/Data"              # Source directory for data archive
+METADATA_DIR=".metadata"                   # Directory name for save metadata in runable package 
 
 ### PRODUCTS EXPONENTS ###
 PR_EXP="tar.xz"    # Exponent for data archive
@@ -28,8 +29,13 @@ REINSTALL=0 # Indikate remove and instaltion - if is build package
 EXEC_NAME=""                  # Complete name for selfexecutable archive
 ARCHIVE_NAME="data.${PR_EXP}" # Complete name for data archive
 
-### Pomocne funkce ###
 
+### INSERT SUBSCRIPTS ###
+source "${TOOLS_DIR}/utils.sh"
+source "${SOURCE_DIR}/configure.sh"
+
+
+### Operations ####################################################################################
 function Header
 {
   message "          W E L C O M E !"
@@ -43,13 +49,11 @@ function Header
 
 function Initialize
 {  
-  source "${SOURCE_DIR}/utils.sh"
-  source "${SOURCE_DIR}/configure.sh"
- 
+  
   Header
   [ -z "$( which tar )" ] && fatal "Nenalezen program tar! Prosim nainstalujte jej..." 
   nl
-
+  [ -e "$BUILD_DIR" ] || mkdir "$BUILD_DIR"
   EXEC_NAME=${GAME_ID}.${PA_EXP}
 }
 
@@ -58,7 +62,10 @@ function Clean
   message "Clean ${GAME_ID} ..."
   #rm ${ARCHIVE_NAME}
   #rm ${EXEC_NAME}
-  rm *.${PR_EXP} *.${PA_EXP} *.${DEB_EXP} *.${LI_EXP}
+  if [ -e "${BUILD_DIR}" ]; then 
+    #rm *.${PR_EXP} *.${PA_EXP} *.${DEB_EXP} *.${LI_EXP}
+    rm "$BUILD_DIR/*"
+  fi  
   
   message "OK"
   exit 0
@@ -90,7 +97,7 @@ EOF
 
     tar -cvf - . | xz -9 -c - > "${BUILD_DIR}/${ARCHIVE_NAME}"
     nl
-    cd $WORK
+    cd "$BASE_DIR"
   fi  
 }
 
@@ -99,7 +106,7 @@ function Make_exec
   message "Make ${GAME_ID} executable"
   if [ -e "${BUILD_DIR}/$ARCHIVE_NAME" ]; then
     message "Join the archive with a decompression script..."
-    cat ${SOURCE_DIR}/configure.sh ${UTILS_DIR}/utils.sh ${SOURCE_DIR}/decompress.sh ${BUILD_DIR}/$ARCHIVE_NAME > ${BUILD_DIR}/${EXEC_NAME}
+    cat "${SOURCE_DIR}/configure.sh" "${TOOLS_DIR}/utils.sh" "${SOURCE_DIR}/decompress.sh" "${BUILD_DIR}/$ARCHIVE_NAME" > "${BUILD_DIR}/${EXEC_NAME}"
     if [ -e "${BUILD_DIR}/${EXEC_NAME}" ]; then
       chmod +x "${BUILD_DIR}/${EXEC_NAME}"
       info "selfexecutable package ${EXEC_NAME} is created"
@@ -117,30 +124,36 @@ function Make_exec
 function Make_deb
 {
   message "Create ${GAME_ID} DEB Package"
-  if [ -e $EXEC_NAME ]; then
+  if [ -e "${BUILD_DIR}/$EXEC_NAME" ]; then
     INSTALL_NAME="${EXEC_NAME}"
     if [ ! -z "$IN_EXP" ]; then 
       INSTALL_NAME="${GAME_ID}.${IN_EXP}"
     fi  
-    rm ${WORK}/package/usr/games/${INSTALL_NAME}
-    cp $EXEC_NAME ${WORK}/package/usr/games/${INSTALL_NAME} 
+    rm "${PACKAGE_DIR}/usr/games/${INSTALL_NAME}"
+    cp "${BUILD_DIR}/$EXEC_NAME" "${PACKAGE_DIR}/usr/games/${INSTALL_NAME}" 
   fi
-  deb-creator.sh ${WORK}/package
-  nl
   
-  if [[ REINSTALL -eq 1 ]]; then
-    message "Uninstall ${GAME_ID} DEB Package"
-    sudo apt remove ${GAME_ID}
-    nl
-  fi
-  if [[ INSTALL -eq 1 ]]; then
-     message "Install ${GAME_ID} DEB Package"
-    sudo apt install ./*.deb
-    nl
-  fi
+  CONTROL_FILE="${PACKAGE_DIR}/DEBIAN/control"
+  if [ -e "$CONTROL_FILE" ]; then
+    writen "Package" "$GAME_ID" "$CONTROL_FILE"
+    ${TOOLS_DIR}/deb-creator.sh "$PACKAGE_DIR" "$BUILD_DIR"
+  
+    if [[ REINSTALL -eq 1 ]]; then
+      message "Uninstall ${GAME_ID} DEB Package"
+      sudo apt remove ${GAME_ID}
+      nl
+    fi
+    if [[ INSTALL -eq 1 ]]; then
+      message "Install ${GAME_ID} DEB Package"
+      cd "$BUILD_DIR"
+      sudo apt install ./*.deb
+      nl
+    fi
+  fi  
+  cd "$BASE_DIR"
 }
 
-### MAIN ########################################
+### MAIN ##########################################################################################
 while [[ $# -gt 0 ]]; do
   case "$1" in
     --help|-h) 
@@ -161,7 +174,7 @@ while [[ $# -gt 0 ]]; do
   
     --workdir|-w)
       shift
-      WORK=$1
+      BASE_DIR=$1
     ;;
     
     --deb)
@@ -172,7 +185,7 @@ while [[ $# -gt 0 ]]; do
       INSTALL=1
     ;;
     
-    --reinstal|-r)
+    --reinstall|-r)
       REINSTALL=1
       INSTALL=1
     ;;  
@@ -184,7 +197,6 @@ while [[ $# -gt 0 ]]; do
 done 
 
 Initialize
-Header
 
 if [[ $CLEAN -eq 1 ]]; then
   Clean
