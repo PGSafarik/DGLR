@@ -29,6 +29,13 @@ GAME_INFO="#2D #GENRE #Singleplyer #Multiplayer #DOS #RELEASE #EN" # Brief infor
 GAME_INFO_DIST="[YEAR ]DEVELOPER[/DISTRIBUTOR]"                    # Autor, distributor
 GAME_INFO_FILE=""                                                  # A file with more detailed information about the game (Soubor s podrobnejsimi informacemi)  
 
+# GAME EXECUTABELS
+GAME_EXEC_FILE="DEFAULT.EXE"
+GAME_CONFIG_FILE="CONFIGURE.EXE"
+MANUAL_EXEC_FILE="MAUAL.EXE"
+
+# DEBUG
+ENABLE_CLEAN=1      # 0 - disable remove game root directory and his content  
 
 # DIRECTORIES (Adresare)
 BACK_DIR=$PWD       # The path from which the script is run. Return here during the termination phase
@@ -55,3 +62,9 @@ AUTO_ANSWER=""     # Indicator of automatic response to launcher questions
 # COMPONENTS
 THIS="$0"                 # Primary launcher
 LAUNCHER=".scripts/go.sh" # Secondary game launcher
+_EDITOR=""
+
+# DOSBOX
+DOSBOX_EXEC=$(which dosbox)
+#DOSBOX_BASE=${GAME_ROOT}/${DRIVE_DIR}/dosbox.conf
+#DOSBOX_AUTOEXEC=${GAME_ROOT}/autoexec.conf

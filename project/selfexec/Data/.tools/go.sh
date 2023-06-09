@@ -1,14 +1,14 @@
 #! /bin/bash
 
-DOSBOX_EXEC=$(which dosbox)
+#DOSBOX_EXEC=$(which dosbox)
 DOSBOX_BASE=${GAME_ROOT}/${DRIVE_DIR}/dosbox.conf
 DOSBOX_AUTOEXEC=${GAME_ROOT}/autoexec.conf
 
-GAME_EXEC_FILE="DEFAULT.EXE"
-GAME_CONFIG_FILE="CONFIGURE.EXE"
-MANUAL_EXEC_FILE="MAUAL.EXE"
+# GAME_EXEC_FILE="DEFAULT.EXE"
+# GAME_CONFIG_FILE="CONFIGURE.EXE"
+# MANUAL_EXEC_FILE="MAUAL.EXE"
 
-_EDITOR=""
+#_EDITOR=""
 
 ### Pomocne funkce ###
 function check_editor( )
