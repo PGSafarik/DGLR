@@ -30,9 +30,9 @@ GAME_INFO_DIST="[YEAR ]DEVELOPER[/DISTRIBUTOR]"                    # Autor, dist
 GAME_INFO_FILE=""                                                  # A file with more detailed information about the game (Soubor s podrobnejsimi informacemi)  
 
 # GAME EXECUTABELS
-GAME_EXEC_FILE="DEFAULT.EXE"
-GAME_CONFIG_FILE="CONFIGURE.EXE"
-MANUAL_EXEC_FILE="MAUAL.EXE"
+GAME_EXEC="DEFAULT.EXE" # Name of game start DOS-program    
+GAME_UTILITY_CONFIG=""  # Name of game configuration DOS-program
+GAME_UTILITY_MANUAL=""  # Name of game Manual DOS-program
 
 # DEBUG
 ENABLE_CLEAN=1      # 0 - disable remove game root directory and his content  
@@ -62,9 +62,9 @@ AUTO_ANSWER=""     # Indicator of automatic response to launcher questions
 # COMPONENTS
 THIS="$0"                 # Primary launcher
 LAUNCHER=".scripts/go.sh" # Secondary game launcher
-_EDITOR=""
+_EDITOR=""                # (@) text editor for edit configuration (read from the EDITOR or the VISUAL env. If its empty used the nano editor)
 
 # DOSBOX
-DOSBOX_EXEC=$(which dosbox)
-#DOSBOX_BASE=${GAME_ROOT}/${DRIVE_DIR}/dosbox.conf
-#DOSBOX_AUTOEXEC=${GAME_ROOT}/autoexec.conf
+DOSBOX_EXEC=$(which dosbox) # Path to DOSBox binnary
+DOSBOX_BASE=""              # (@) Path to base dosbox.conf
+DOSBOX_AUTOEXEC=""          # (@) Path to autoexec.conf
