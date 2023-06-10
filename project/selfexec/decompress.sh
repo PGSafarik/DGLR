@@ -141,7 +141,8 @@ function storage_delete
 function Initialize
 {  
   [ -z "$GAME_ID" ] && fatal "Developer fatal error: GAME ID MUST BE DEFINED, DUDE!!!"
- 
+  [ -z "$DOSBOX_EXEC" ] && fatal "The DOSBox not fount !!!"
+  
   # Unpack game archive
   message "Game data extraction. This operation may take some time, please wait..."
   GAME_ROOT=$( mktemp -d "${EXTRACT_DIR}/${GAME_ID}.XXXXXX" )
