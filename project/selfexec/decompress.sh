@@ -1,4 +1,9 @@
-### Operations ######################################
+##########################################################################
+# Dosbox (Games) Linux Runtime - Selfexecutable game launcher            #
+# Primary launcher - part B : Operations                                 # 
+# Copyright (c) 2020 - 2023 D.A.Tiger <drakarax@seznam.cz>, GNU GPL v.3  #
+##########################################################################
+
 # Print application using
 function help 
 {
@@ -183,7 +188,7 @@ function Quit
   message "BYE!"
 }
 
-### MAIN #########################################
+### MAIN ##########################################################################################
 PrintHead
 info "Prepare..."
 

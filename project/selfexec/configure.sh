@@ -1,7 +1,7 @@
 #! /bin/bash
-
 ##########################################################################
 # Dosbox (Games) Linux Runtime - Selfexecutable game launcher            #
+# Primary launcher - part a: Configurations & variables                  #  
 # Copyright (c) 2020 - 2023 D.A.Tiger <drakarax@seznam.cz>, GNU GPL v.3  #
 #                                                                        #
 # This program is free software: you can redistribute it and/or modify   #
@@ -17,7 +17,7 @@
 # You should have received a copy of the GNU General Public License      #
 # along with this program.  If not, see <https://www.gnu.org/licenses/>. #
 ##########################################################################
-# Items marked with the symbol :
+# Items marked with the symbol in comment :
 # * - its required 
 # @ - will be evaluated during the program
 
@@ -35,7 +35,8 @@ GAME_UTILITY_CONFIG=""  # Name of game configuration DOS-program
 GAME_UTILITY_MANUAL=""  # Name of game Manual DOS-program
 
 # DEBUG
-ENABLE_CLEAN=1      # 0 - disable remove game root directory and his content  
+ENABLE_CLEAN=1       # 0 - disable remove game root directory and his content 
+DGLR_VERSION="0.5.0" # Version of DGLR project
 
 # DIRECTORIES (Adresare)
 BACK_DIR=$PWD       # The path from which the script is run. Return here during the termination phase
@@ -60,9 +61,9 @@ VERBROSE=0         # Verbrose mode indicator
 AUTO_ANSWER=""     # Indicator of automatic response to launcher questions
 
 # COMPONENTS
-THIS="$0"                 # Primary launcher
-LAUNCHER=".scripts/go.sh" # Secondary game launcher
-_EDITOR=""                # (@) text editor for edit configuration (read from the EDITOR or the VISUAL env. If its empty used the nano editor)
+THIS="$0"               # Primary launcher
+LAUNCHER=".tools/go.sh" # Secondary game launcher
+_EDITOR=""              # (@) text editor for edit configuration (read from the EDITOR or the VISUAL env. If its empty used the nano editor)
 
 # DOSBOX
 DOSBOX_EXEC=$(which dosbox) # Path to DOSBox binnary

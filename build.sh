@@ -1,6 +1,21 @@
 #! /bin/bash
-# Selfexecute archive build script v  1.0 
-# (C) 2019 - 2023 D.A.Tiger GNU GPL v3
+##########################################################################
+# Dosbox (Games) Linux Runtime - Selfexecutable archive builder          #
+# Copyright (c) 2019 - 2023 D.A.Tiger <drakarax@seznam.cz>, GNU GPL v.3  #
+#                                                                        #
+# This program is free software: you can redistribute it and/or modify   #
+# it under the terms of the GNU General Public License as published by   #
+# the Free Software Foundation, either version 3 of the License, or      #
+# (at your option) any later version.                                    #
+#                                                                        #
+# This program is distributed in the hope that it will be useful,        #
+# but WITHOUT ANY WARRANTY; without even the implied warranty of         #
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the          #
+# GNU General Public License for more details.                           #
+#                                                                        #
+# You should have received a copy of the GNU General Public License      #
+# along with this program.  If not, see <https://www.gnu.org/licenses/>. #
+##########################################################################
 
 ### DIRECTORIES ###
 BASE_DIR="$(pwd)"                          # Work point for this skript
@@ -30,7 +45,7 @@ EXEC_NAME=""                  # Complete name for selfexecutable archive
 ARCHIVE_NAME="data.${PR_EXP}" # Complete name for data archive
 
 
-### INSERT SUBSCRIPTS ###
+### INCLUDE SUBSCRIPTS ###
 source "${TOOLS_DIR}/utils.sh"
 source "${SOURCE_DIR}/configure.sh"
 
@@ -189,9 +204,6 @@ while [[ $# -gt 0 ]]; do
       REINSTALL=1
       INSTALL=1
     ;;  
-#    *)
-#      NEXT+=( "$1" )
-#    ;;
   esac 
   shift
 done 
@@ -210,3 +222,5 @@ else
 fi
 
 exit 0
+
+### END ###########################################################################################

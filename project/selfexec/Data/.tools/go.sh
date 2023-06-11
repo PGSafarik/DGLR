@@ -1,4 +1,22 @@
 #! /bin/bash
+##########################################################################
+# Dosbox (Games) Linux Runtime - Selfexecutable game launcher            #
+# Secondary launcher                                                     #
+# Copyright (c) 2020 - 2023 D.A.Tiger <drakarax@seznam.cz>, GNU GPL v.3  #
+#                                                                        #
+# This program is free software: you can redistribute it and/or modify   #
+# it under the terms of the GNU General Public License as published by   #
+# the Free Software Foundation, either version 3 of the License, or      #
+# (at your option) any later version.                                    #
+#                                                                        #
+# This program is distributed in the hope that it will be useful,        #
+# but WITHOUT ANY WARRANTY; without even the implied warranty of         #
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the          #
+# GNU General Public License for more details.                           #
+#                                                                        #
+# You should have received a copy of the GNU General Public License      #
+# along with this program.  If not, see <https://www.gnu.org/licenses/>. #
+##########################################################################
 
 ### Operations ##############################
 function check_editor( )
@@ -29,7 +47,7 @@ MOUNT C $DRIVE_DIR
 C:
 CLS
 $1
-# EXIT
+EXIT
 EOF
 }
 
@@ -63,7 +81,7 @@ function game_run( )
   if [ $STORAGE_LOAD_G -eq 0 ] && [ "$GAME_CONFIG_FILE" ]; then
      dosbox_run "$CONFIG_EXEC_FILE" 
   fi   
-  dosbox_run "$GAME_EXEC_FILE"
+  dosbox_run "$GAME_EXEC"
 }
 
 function proc_cont( )

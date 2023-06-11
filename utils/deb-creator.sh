@@ -1,25 +1,28 @@
 #! /bin/bash
-
-# deb-creator.sh
-# Copyright 2016 - 2023 D.A.Tiger (Pavel Šafařík) <drakarax@seznam.cz>
-#
+##########################################################################
+# Dosbox (Games) Linux Runtime - Utils                                   #
+# Debian package creator                                                 #
+# Copyright (c) 2016 - 2023 D.A.Tiger <drakarax@seznam.cz>, GNU GPL v.3  #
+#                                                                        #
+# This program is free software: you can redistribute it and/or modify   #
+# it under the terms of the GNU General Public License as published by   #
+# the Free Software Foundation, either version 3 of the License, or      #
+# (at your option) any later version.                                    #
+#                                                                        #
+# This program is distributed in the hope that it will be useful,        #
+# but WITHOUT ANY WARRANTY; without even the implied warranty of         #
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the          #
+# GNU General Public License for more details.                           #
+#                                                                        #
+# You should have received a copy of the GNU General Public License      #
+# along with this program.  If not, see <https://www.gnu.org/licenses/>. #
+##########################################################################
 # The script that automates the compilation of a binary, data, or meta deb package from a pre-prepared source directory.
-# Dependencies: bash, dpkg, tar, md5sum, kdialog, sudo, askpass 
-#
-#  This program is free software: you can redistribute it and/or modify
-#  it under the terms of the GNU General Public License as published by
-#  the Free Software Foundation, either version 3 of the License, or
-#  (at your option) any later version.
-# 
-#  This program is distributed in the hope that it will be useful,
-#  but WITHOUT ANY WARRANTY; without even the implied warranty of
-#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-#  GNU General Public License for more details.
-# 
-#  You should have received a copy of the GNU General Public License
-#  along with this program.  If not, see <https://www.gnu.org/licenses/>.
+# Using       : deb-creator $SOURCE_DIR $BUILD_DIR
+# Dependencies: bash, dpkg, tar, md5sum, kdialog, sudo, askpass
 
-### Promene #####################################
+
+### Promene #######################################################################################
 # Projekt #
 PROJECT_NAME=""         # Nazev projektu
 DEBDIR=debian           # Nazev adresare metadat (tzv. ridici adresar)
@@ -37,13 +40,13 @@ DIA_TEXT="TEXT"         # Text
 SUDO=$( [ -z "$XDG_SESSION_DESKTOP" ] && echo "sudo" || echo "sudo -A" )
 
 
-### Parametry ###################################
+### Parametry #####################################################################################
 OPTIND=1 # Reset pro pripad ze byl getopt pouzit v shellu 
 
 SOURCE=$1               # Zdojovy adresar, nebo soubor s metadaty
 TARGET_DIR=$2           # Cilovy adresar
 
-### Deklarace pomocnych funkci ##################
+### Deklarace pomocnych funkci ####################################################################
 function Checksum( ) {  
   # Vytvoreni kontrolnich souctu vsech souboru v baliku, mimo obsahu adresare DEBIAN
   find * -type f ! -regex $REGEX -exec md5sum {} \; > ${DEBDIR}/md5sums
@@ -155,7 +158,7 @@ function Clear( ) {
   fi 
 }  
 
-### Main ########################################
+### Main ##########################################################################################
 CheckScritArgs
 CheckMeta
 
