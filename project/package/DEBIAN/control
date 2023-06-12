@@ -1,9 +1,9 @@
 Package: NAME-OF-THE-GAME-PACKAGE
-Version: 1.00
+Version: 1.0.0
 Section: games 
 Priority: optional 
-Recommends:  
-Depends: dosbox 
+Recommends: xterm, nano  
+Depends: dosbox,fuse-overlayfs 
 Architecture: all
 Installed-Size:  
 Maintainer: gabriel <gabriel@Alien>

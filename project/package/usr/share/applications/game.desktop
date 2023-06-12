@@ -8,19 +8,24 @@ Icon=/usr/share/pixmaps/XXXX.png
 Encoding=UTF-8
 #ActionGame;AdventureGame;ArcadeGame;BoardGame;BlocksGame;CardGame;KidsGame;LogicGame;RolePlaying;Shooter;Simulation;SportsGame;StrategyGame
 Categories=Game;ArcadeGame;
-Actions=Setup;Clean;Settings;
+Actions=Setup;Clean;Settings;Info;
 
 [Desktop Action Setup]
 Name=Edit Dosbox configurations
-Exec=/usr/games/XXX.run setup
+Exec=/usr/games/XXX.run --setup --no
 Icon=dosbox
 
 [Desktop Action Settings]
 Name=Game configuration
-Exec=/usr/games/XXX.run settings
-Icon=
+Exec=/usr/games/XXX.run --settings --no
+Icon=configure
 
 [Desktop Action Clean]
 Name=Clean user storage
-Exec=/usr/games/XXX.run clean
-Icon=
+Exec=/usr/games/XXX.run --clean --yes
+Icon=remove
+
+[Desktop Action Info]
+Name="Game informations"
+Exec=/usr/games/XXX.run --help
+Icon=help-contents
