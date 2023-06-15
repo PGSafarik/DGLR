@@ -89,8 +89,8 @@ function storage_sync
     
     # Control modifications
     CHANGE=1
-    if [ -e ".metadata/checksum.md5" ]; then
-      CMPOUT=$(cmp ".metadata/checksum.md5" ".metadata/~checksum.md5") 
+    if [ -e ".metadata/checksum.md5" ]; then 
+      CMPOUT=$(diff -bB ".metadata/checksum.md5" ".metadata/~checksum.md5") 
       vmessage "$CMPOUT"
       if [ "$CMPOUT" ]; then 
         rm ".metadata/checksum.md5"
